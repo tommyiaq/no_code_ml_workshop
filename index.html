@@ -462,6 +462,51 @@
     </div>
   </section>
 
+  <!-- FLOATING HAMMERS -->
+  <div id="hammers" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;"></div>
+
+  <script>
+    (function() {
+      const container = document.getElementById('hammers');
+      const HAMMER_COUNT = 25;
+      const EMOJI = '🔨';
+
+      for (let i = 0; i < HAMMER_COUNT; i++) {
+        const el = document.createElement('span');
+        const size = 14 + Math.random() * 22;
+        const startX = Math.random() * 100;
+        const duration = 6 + Math.random() * 10;
+        const delay = Math.random() * duration;
+        const drift = -40 + Math.random() * 80;
+        const spin = Math.random() > 0.5 ? 360 : -360;
+
+        el.textContent = EMOJI;
+        el.style.cssText = `
+          position: absolute;
+          top: -40px;
+          left: ${startX}%;
+          font-size: ${size}px;
+          opacity: ${0.15 + Math.random() * 0.35};
+          animation: hammerFall${i} ${duration}s ${delay}s linear infinite;
+          filter: drop-shadow(0 0 3px rgba(201,164,74,0.3));
+        `;
+
+        const keyframes = `
+          @keyframes hammerFall${i} {
+            0%   { transform: translateY(-40px) translateX(0px) rotate(0deg); opacity: 0; }
+            5%   { opacity: ${0.15 + Math.random() * 0.35}; }
+            90%  { opacity: ${0.15 + Math.random() * 0.25}; }
+            100% { transform: translateY(${window.innerHeight + 60}px) translateX(${drift}px) rotate(${spin}deg); opacity: 0; }
+          }
+        `;
+        const style = document.createElement('style');
+        style.textContent = keyframes;
+        document.head.appendChild(style);
+        container.appendChild(el);
+      }
+    })();
+  </script>
+
   <!-- FOOTER -->
   <footer>
     <p>Fatto con <span class="heart">&hearts;</span> per Maddalena</p>
