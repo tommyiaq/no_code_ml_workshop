@@ -3,515 +3,857 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clavicular per Maddalena</title>
+  <title>Virginia Borri &mdash; Editor | PAB Editore</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --surface2: #1e1e1e;
-      --accent: #c9a44a;
-      --accent-dim: rgba(201, 164, 74, 0.15);
-      --red: #e74c3c;
-      --red-dim: rgba(231, 76, 60, 0.12);
-      --text: #eee;
-      --text-muted: #777;
+      --bg: #0c0a09;
+      --surface: #1a1714;
+      --surface2: #252019;
+      --cream: #f5f0e8;
+      --gold: #c8a96e;
+      --gold-dim: rgba(200, 169, 110, 0.12);
+      --gold-mid: rgba(200, 169, 110, 0.25);
+      --ink: #2c2520;
+      --text: #e8e0d4;
+      --text-muted: #8a7e72;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', -apple-system, sans-serif;
       --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--text);
-      min-height: 100dvh;
       overflow-x: hidden;
     }
 
-    /* ── Hero ── */
-    .hero {
-      position: relative;
+    ::selection {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    /* ══════ NAV ══════ */
+    nav {
+      position: fixed;
+      top: 0;
       width: 100%;
-      min-height: 90vh;
+      z-index: 100;
+      padding: 1.2rem 2rem;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(12,10,9,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(200,169,110,0.08);
+      transition: all 0.4s;
+    }
+
+    nav .logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+
+    nav .logo span {
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-left: 0.4rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    /* ══════ HERO ══════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(201,164,74,0.08) 0%, transparent 60%),
-        var(--bg);
+      position: relative;
       overflow: hidden;
+      padding: 2rem;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201,164,74,0.07) 0%, transparent 70%);
-      border-radius: 50%;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(200,169,110,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(200,169,110,0.04) 0%, transparent 50%);
+    }
+
+    /* Floating book pages */
+    .hero .pages {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
       pointer-events: none;
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
+    .page-float {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      background: linear-gradient(135deg, rgba(245,240,232,0.06), rgba(245,240,232,0.02));
+      border: 1px solid rgba(245,240,232,0.04);
+      border-radius: 2px;
+      animation: pageFloat linear infinite;
+    }
+
+    @keyframes pageFloat {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-mid);
       border-radius: 999px;
-      border: 1px solid rgba(201,164,74,0.25);
-      margin-bottom: 1.5rem;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-family: var(--serif);
+      font-size: clamp(3rem, 9vw, 7rem);
       font-weight: 900;
+      line-height: 0.95;
       letter-spacing: -0.03em;
-      line-height: 1.05;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--cream);
+      margin-bottom: 0.3em;
     }
 
-    .hero .subtitle {
-      font-size: clamp(1rem, 3vw, 1.3rem);
-      color: var(--text-muted);
-      margin-top: 0.8rem;
+    .hero h1 em {
+      font-style: italic;
       font-weight: 400;
+      color: var(--gold);
     }
 
-    .hero .dedication {
-      margin-top: 2rem;
-      font-size: 0.95rem;
-      color: var(--accent);
-      font-weight: 600;
-      opacity: 0.85;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      animation: bounce 2s infinite;
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic;
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+      opacity: 0.5;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
     }
 
-    .scroll-hint svg { opacity: 0.4; }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
+    .scroll-indicator .line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s infinite;
     }
 
-    /* ── Sections ── */
+    @keyframes scrollPulse {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ══════ SECTIONS ══════ */
     .container {
-      max-width: 720px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
 
-    section { padding: 4rem 0; }
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
 
-    section h2 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 2rem;
       letter-spacing: -0.02em;
     }
 
-    section h2 .accent { color: var(--accent); }
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
 
-    /* ── Stats row ── */
-    .stats {
+    /* ══════ ABOUT ══════ */
+    .about-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
     }
 
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 1.5rem 1rem;
-      text-align: center;
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
     }
 
-    .stat-card .number {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .stat-card .label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* ── Bio card ── */
-    .bio-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .bio-card p {
-      color: #bbb;
-      line-height: 1.7;
+    .about-text p {
       font-size: 0.95rem;
+      line-height: 1.8;
+      color: #bbb3a7;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .about-text strong { color: var(--cream); font-weight: 600; }
+
+    .about-quote {
+      background: var(--surface);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 2rem 2.5rem;
+      position: relative;
+    }
+
+    .about-quote blockquote {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.6;
       margin-bottom: 1rem;
     }
 
-    .bio-card p:last-child { margin-bottom: 0; }
-    .bio-card strong { color: var(--text); }
-
-    /* ── Timeline ── */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent), var(--red), var(--text-muted));
-      border-radius: 2px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2rem;
-      padding-left: 1rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1.65rem;
-      top: 0.35rem;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 2px solid var(--bg);
-    }
-
-    .timeline-item.controversy::before { background: var(--red); }
-
-    .timeline-item .date {
-      font-size: 0.75rem;
+    .about-quote cite {
+      font-style: normal;
+      font-family: var(--sans);
+      font-size: 0.78rem;
       color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .about-quote::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      font-family: var(--serif);
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.15;
+      line-height: 1;
+    }
+
+    /* ══════ STATS ══════ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--surface);
+      border: 1px solid rgba(200,169,110,0.06);
+      border-radius: var(--radius);
+      transition: border-color 0.4s, transform 0.3s;
+    }
+
+    .stat:hover {
+      border-color: var(--gold-mid);
+      transform: translateY(-4px);
+    }
+
+    .stat .num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat .unit {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      font-weight: 600;
+      font-weight: 500;
     }
 
-    .timeline-item h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin: 0.3rem 0;
-    }
-
-    .timeline-item p {
-      font-size: 0.88rem;
-      color: #999;
-      line-height: 1.6;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      margin-top: 0.4rem;
-    }
-
-    .tag.viral { background: var(--accent-dim); color: var(--accent); }
-    .tag.danger { background: var(--red-dim); color: var(--red); }
-
-    /* ── Practices ── */
-    .practices-grid {
+    /* ══════ SERVICES ══════ */
+    .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
 
-    .practice-card {
+    .service-card {
       background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,169,110,0.06);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: border-color 0.3s;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s;
     }
 
-    .practice-card:hover { border-color: rgba(201,164,74,0.3); }
+    .service-card:hover {
+      border-color: var(--gold-mid);
+      transform: translateY(-4px);
+    }
 
-    .practice-card .icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
 
-    .practice-card h3 {
-      font-size: 0.95rem;
+    .service-card:hover::after { opacity: 1; }
+
+    .service-card .icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
     }
 
-    .practice-card p {
+    .service-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ══════ PAB SECTION ══════ */
+    .pab-banner {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border: 1px solid rgba(200,169,110,0.1);
+      border-radius: 20px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pab-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(200,169,110,0.08), transparent 60%);
+    }
+
+    .pab-banner > * { position: relative; }
+
+    .pab-name {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .pab-full {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .pab-desc {
+      font-size: 0.95rem;
+      color: #bbb3a7;
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .pab-values {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pab-value {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      font-weight: 500;
     }
 
-    /* ── Warning ── */
-    .warning-banner {
-      background: var(--red-dim);
-      border: 1px solid rgba(231,76,60,0.3);
-      border-radius: var(--radius);
-      padding: 1.5rem 2rem;
-      margin-top: 3rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+    .pab-value::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.6;
     }
 
-    .warning-banner .warn-icon { font-size: 1.5rem; flex-shrink: 0; }
+    /* ══════ PROCESS ══════ */
+    .process-steps {
+      display: grid;
+      gap: 0;
+    }
 
-    .warning-banner p {
+    .step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(200,169,110,0.06);
+      transition: background 0.3s;
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: rgba(200,169,110,0.15);
+      line-height: 1;
+    }
+
+    .step h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
       font-size: 0.88rem;
-      color: #daa;
-      line-height: 1.6;
-    }
-
-    .warning-banner strong { color: var(--red); }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
       color: var(--text-muted);
-      font-size: 0.78rem;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      margin-top: 2rem;
+      line-height: 1.7;
+      font-weight: 300;
     }
 
-    footer .heart { color: var(--accent); }
+    /* ══════ CTA ══════ */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 2rem;
+    }
+
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(200,169,110,0.3);
+    }
+
+    /* ══════ FOOTER ══════ */
+    footer {
+      border-top: 1px solid rgba(200,169,110,0.06);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    footer .foot-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ══════ ANIMATIONS ══════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Virginia Borri <span>Editor</span></div>
+    <ul>
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#pab">PAB</a></li>
+      <li><a href="#metodo">Metodo</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
+
   <!-- HERO -->
-  <div class="hero">
-    <span class="badge">Looksmaxxing Icon</span>
-    <h1>Clavicular</h1>
-    <p class="subtitle">Braden Peters &mdash; il volto estremo dell'ossessione estetica</p>
-    <p class="dedication">per Maddalena &hearts;</p>
-    <div class="scroll-hint">
-      scorri
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  <section class="hero">
+    <div class="pages">
+      <div class="page-float" style="left:8%;width:25px;height:35px;animation-duration:14s;animation-delay:0s;"></div>
+      <div class="page-float" style="left:22%;width:20px;height:28px;animation-duration:18s;animation-delay:3s;"></div>
+      <div class="page-float" style="left:45%;width:32px;height:42px;animation-duration:12s;animation-delay:1s;"></div>
+      <div class="page-float" style="left:65%;width:22px;height:30px;animation-duration:16s;animation-delay:5s;"></div>
+      <div class="page-float" style="left:80%;width:28px;height:38px;animation-duration:20s;animation-delay:2s;"></div>
+      <div class="page-float" style="left:35%;width:18px;height:24px;animation-duration:15s;animation-delay:7s;"></div>
+      <div class="page-float" style="left:55%;width:26px;height:34px;animation-duration:17s;animation-delay:4s;"></div>
+      <div class="page-float" style="left:92%;width:24px;height:32px;animation-duration:13s;animation-delay:6s;"></div>
     </div>
-  </div>
+
+    <div class="hero-content">
+      <div class="hero-tag">Editor Professionista</div>
+      <h1>Virginia<br><em>Borri</em></h1>
+      <p class="hero-sub">L'arte di trasformare manoscritti in capolavori</p>
+      <div class="hero-line"></div>
+      <p class="hero-desc">Editor con una vasta esperienza nel mondo editoriale italiano. Collaboro con autori e case editrici per dare forma alle storie che meritano di essere raccontate.</p>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scopri</span>
+      <div class="line"></div>
+    </div>
+  </section>
 
   <!-- STATS -->
   <div class="container">
-    <div class="stats">
-      <div class="stat-card">
-        <div class="number">413K</div>
-        <div class="label">Follower IG</div>
+    <div class="stats-row">
+      <div class="stat reveal">
+        <div class="num">15+</div>
+        <span class="unit">Anni di esperienza</span>
       </div>
-      <div class="stat-card">
-        <div class="number">$35K</div>
-        <div class="label">Chirurgia mascella</div>
+      <div class="stat reveal">
+        <div class="num">200+</div>
+        <span class="unit">Libri editati</span>
       </div>
-      <div class="stat-card">
-        <div class="number">21</div>
-        <div class="label">Anni</div>
+      <div class="stat reveal">
+        <div class="num">50+</div>
+        <span class="unit">Autori seguiti</span>
       </div>
-      <div class="stat-card">
-        <div class="number">2+</div>
-        <div class="label">Arresti</div>
+      <div class="stat reveal">
+        <div class="num">12</div>
+        <span class="unit">Premi letterari</span>
       </div>
     </div>
   </div>
 
-  <!-- CHI È -->
-  <section>
+  <!-- CHI SONO -->
+  <section id="chi-sono">
     <div class="container">
-      <h2>Chi <span class="accent">&egrave;</span></h2>
-      <div class="bio-card">
-        <p><strong>Braden Peters</strong>, conosciuto online come <strong>Clavicular</strong>, &egrave; un influencer americano diventato il simbolo della sottocultura del <strong>looksmaxxing</strong> &mdash; l'ossessione maschile di massimizzare il proprio aspetto fisico con ogni mezzo possibile.</p>
-        <p>Ha costruito il suo enorme seguito documentando metodi estremi per "ascendere" esteticamente: dall'uso di steroidi e testosterone, a pratiche autolesionistiche come il <strong>bone smashing</strong> (colpirsi il viso con un martello per scolpire la mascella), fino a interventi chirurgici da decine di migliaia di dollari.</p>
-        <p>La sua teoria si basa sulla <strong>Legge di Wolff</strong>, un principio del chirurgo tedesco Julius Wolff del XIX secolo secondo cui le ossa si rafforzano quando esposte a stress meccanico. Un'interpretazione che la comunit&agrave; medica considera <strong>pericolosa e priva di fondamento</strong> se applicata in questo modo.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRATICHE -->
-  <section>
-    <div class="container">
-      <h2>Le <span class="accent">pratiche</span></h2>
-      <div class="practices-grid">
-        <div class="practice-card">
-          <div class="icon">&#128296;</div>
-          <h3>Bone Smashing</h3>
-          <p>Colpirsi la mascella con un martello per stimolare la crescita ossea e ottenere una jawline pi&ugrave; definita.</p>
+      <div class="section-label reveal">Chi sono</div>
+      <div class="section-title reveal">Ogni libro ha un'anima.<br><em>Io la faccio emergere.</em></div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p><strong>Virginia Borri</strong> &egrave; un'editor professionista con una profonda passione per la narrativa e un occhio attento per i dettagli che fanno la differenza tra un buon libro e un libro indimenticabile.</p>
+          <p>Con anni di esperienza nel settore editoriale italiano, lavora a stretto contatto con autori esordienti e affermati, guidandoli nel processo di revisione con sensibilit&agrave;, rigore e una visione chiara dell'opera finale.</p>
+          <p>Collabora con <strong>PAB Editore</strong> (Provaci Ancora Bill), casa editrice indipendente che pubblica tutti i generi e promuove le voci emergenti della letteratura italiana.</p>
         </div>
-        <div class="practice-card">
-          <div class="icon">&#128137;</div>
-          <h3>Steroidi &amp; Testosterone</h3>
-          <p>Uso massiccio di sostanze per massimizzare la massa muscolare e l'aspetto fisico.</p>
-        </div>
-        <div class="practice-card">
-          <div class="icon">&#127973;</div>
-          <h3>Chirurgia Mascellare</h3>
-          <p>Intervento da $35.000 per rimodellare chirurgicamente la struttura della mascella.</p>
-        </div>
-        <div class="practice-card">
-          <div class="icon">&#128138;</div>
-          <h3>Peptidi Dissolventi</h3>
-          <p>Iniezioni di peptidi per dissolvere il grasso e ridefinire il contorno del viso.</p>
+        <div class="about-quote reveal">
+          <blockquote>&ldquo;Un buon editor non riscrive la tua storia. La ascolta pi&ugrave; attentamente di chiunque altro, e ti aiuta a raccontarla come l'hai sempre immaginata.&rdquo;</blockquote>
+          <cite>&mdash; Virginia Borri</cite>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TIMELINE -->
-  <section>
+  <!-- SERVIZI -->
+  <section id="servizi">
     <div class="container">
-      <h2>La <span class="accent">timeline</span></h2>
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="date">2024</div>
-          <h3>Ascesa su TikTok</h3>
-          <p>Clavicular inizia a documentare il suo percorso di looksmaxxing. I video sul bone smashing diventano virali, attirando milioni di visualizzazioni.</p>
-          <span class="tag viral">Virale</span>
+      <div class="section-label reveal">Servizi</div>
+      <div class="section-title reveal">Dall'idea al <em>libro finito</em></div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <span class="icon">&#9997;&#65039;</span>
+          <h3>Editing Strutturale</h3>
+          <p>Analisi approfondita della trama, dei personaggi e dell'arco narrativo. Riorganizzazione dei capitoli e rafforzamento della struttura complessiva dell'opera.</p>
         </div>
-
-        <div class="timeline-item">
-          <div class="date">2025</div>
-          <h3>Chirurgia da $35.000</h3>
-          <p>Si sottopone a un intervento chirurgico alla mascella, documentando l'intero processo per i suoi follower.</p>
+        <div class="service-card reveal">
+          <span class="icon">&#128270;</span>
+          <h3>Editing Stilistico</h3>
+          <p>Intervento sullo stile, il ritmo e la voce narrativa. Ogni frase viene calibrata per ottenere il massimo impatto emotivo e la massima chiarezza.</p>
         </div>
-
-        <div class="timeline-item controversy">
-          <div class="date">Novembre 2025</div>
-          <h3>Iniezioni alla ragazza minorenne</h3>
-          <p>Un video lo mostra mentre inietta peptidi dissolventi nella mascella della sua ragazza di 17 anni. Il video scatena un'ondata di indignazione.</p>
-          <span class="tag danger">Controversia</span>
+        <div class="service-card reveal">
+          <span class="icon">&#128214;</span>
+          <h3>Valutazione Manoscritto</h3>
+          <p>Scheda di lettura professionale con analisi dei punti di forza, delle criticit&agrave; e delle potenzialit&agrave; editoriali. Il primo passo verso la pubblicazione.</p>
         </div>
-
-        <div class="timeline-item controversy">
-          <div class="date">Dicembre 2025</div>
-          <h3>Minacce a un fan in diretta</h3>
-          <p>Durante un livestream, minaccia di "spaccare la mascella" a un fan che lo stava provocando. Il video diventa virale.</p>
-          <span class="tag danger">Controversia</span>
+        <div class="service-card reveal">
+          <span class="icon">&#127919;</span>
+          <h3>Consulenza Editoriale</h3>
+          <p>Affiancamento strategico per autori e case editrici. Dalla scelta del genere al posizionamento sul mercato, passando per la costruzione dell'identit&agrave; autoriale.</p>
         </div>
-
-        <div class="timeline-item controversy">
-          <div class="date">2026</div>
-          <h3>Overdose in diretta su Kick</h3>
-          <p>Collassa durante un livestream su Kick per sospetta overdose. Viene trasportato d'urgenza in ospedale.</p>
-          <span class="tag danger">Emergenza</span>
+        <div class="service-card reveal">
+          <span class="icon">&#128218;</span>
+          <h3>Correzione di Bozze</h3>
+          <p>Revisione meticolosa di refusi, errori grammaticali, coerenza tipografica e formattazione. L'ultimo passaggio prima della stampa.</p>
         </div>
-
-        <div class="timeline-item controversy">
-          <div class="date">2026</div>
-          <h3>Arresto in Florida</h3>
-          <p>Arrestato per aggressione durante un livestream a Orlando e per aver sparato a un coccodrillo.</p>
-          <span class="tag danger">Arresto</span>
+        <div class="service-card reveal">
+          <span class="icon">&#129309;</span>
+          <h3>Mentoring per Autori</h3>
+          <p>Percorso personalizzato di crescita per scrittori esordienti. Dall'idea iniziale alla stesura finale, con feedback continuo e incontri periodici.</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- AVVERTENZA -->
-  <section>
+  <!-- PAB EDITORE -->
+  <section id="pab">
     <div class="container">
-      <div class="warning-banner">
-        <div class="warn-icon">&#9888;&#65039;</div>
-        <p><strong>Attenzione:</strong> Le pratiche descritte in questa pagina sono estremamente pericolose e prive di validit&agrave; scientifica. Il bone smashing pu&ograve; causare fratture, danni permanenti e deformit&agrave;. Non tentare di replicare nulla di quanto documentato. Questo sito ha esclusivamente scopo informativo.</p>
+      <div class="section-label reveal">La casa editrice</div>
+      <div class="pab-banner reveal">
+        <div class="pab-name">PAB Editore</div>
+        <div class="pab-full">Provaci Ancora Bill</div>
+        <p class="pab-desc">Casa editrice indipendente che crede nel potere delle storie. Pubblica tutti i generi letterari con una missione chiara: dare voce agli autori emergenti e offrire ai lettori libri che lasciano il segno.</p>
+        <div class="pab-values">
+          <span class="pab-value">Tutti i generi</span>
+          <span class="pab-value">Autori esordienti</span>
+          <span class="pab-value">Qualit&agrave; editoriale</span>
+          <span class="pab-value">Indipendenza</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- FLOATING HAMMERS -->
-  <div id="hammers" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;"></div>
+  <!-- METODO -->
+  <section id="metodo">
+    <div class="container">
+      <div class="section-label reveal">Il metodo</div>
+      <div class="section-title reveal">Un percorso <em>su misura</em></div>
+      <div class="process-steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Prima lettura</h3>
+            <p>Leggo il manoscritto senza intervenire, lasciandomi guidare dalla storia. Prendo nota delle emozioni, delle domande, dei momenti che funzionano e di quelli che inciampano.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Diagnosi editoriale</h3>
+            <p>Preparo una scheda dettagliata con l'analisi strutturale, stilistica e narrativa. Individuiamo insieme le priorit&agrave; di intervento e definiamo il piano di lavoro.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Editing profondo</h3>
+            <p>Intervento capitolo per capitolo, con commenti, proposte e riscritture. Un dialogo costante tra editor e autore, nel rispetto della voce originale.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">04</div>
+          <div>
+            <h3>Rifinitura finale</h3>
+            <p>Ultima revisione per coerenza, ritmo e pulizia formale. Il manoscritto &egrave; pronto per la pubblicazione &mdash; ogni parola al suo posto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    (function() {
-      const container = document.getElementById('hammers');
-      const HAMMER_COUNT = 25;
-      const EMOJI = '🔨';
-
-      for (let i = 0; i < HAMMER_COUNT; i++) {
-        const el = document.createElement('span');
-        const size = 14 + Math.random() * 22;
-        const startX = Math.random() * 100;
-        const duration = 6 + Math.random() * 10;
-        const delay = Math.random() * duration;
-        const drift = -40 + Math.random() * 80;
-        const spin = Math.random() > 0.5 ? 360 : -360;
-
-        el.textContent = EMOJI;
-        el.style.cssText = `
-          position: absolute;
-          top: -40px;
-          left: ${startX}%;
-          font-size: ${size}px;
-          opacity: ${0.15 + Math.random() * 0.35};
-          animation: hammerFall${i} ${duration}s ${delay}s linear infinite;
-          filter: drop-shadow(0 0 3px rgba(201,164,74,0.3));
-        `;
-
-        const keyframes = `
-          @keyframes hammerFall${i} {
-            0%   { transform: translateY(-40px) translateX(0px) rotate(0deg); opacity: 0; }
-            5%   { opacity: ${0.15 + Math.random() * 0.35}; }
-            90%  { opacity: ${0.15 + Math.random() * 0.25}; }
-            100% { transform: translateY(${window.innerHeight + 60}px) translateX(${drift}px) rotate(${spin}deg); opacity: 0; }
-          }
-        `;
-        const style = document.createElement('style');
-        style.textContent = keyframes;
-        document.head.appendChild(style);
-        container.appendChild(el);
-      }
-    })();
-  </script>
+  <!-- CTA -->
+  <section class="cta-section" id="contatti">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label" style="justify-content:center;">Contatti</div>
+        <h2 class="cta-title">Hai un manoscritto<br>nel <em>cassetto?</em></h2>
+        <p style="color:var(--text-muted);margin-bottom:2.5rem;font-weight:300;font-size:1rem;">Raccontami il tuo progetto. Il primo confronto &egrave; sempre gratuito.</p>
+        <a href="mailto:virginia@pabeditore.com" class="cta-btn">
+          Scrivimi
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>Fatto con <span class="heart">&hearts;</span> per Maddalena</p>
-    <p style="margin-top:0.4rem; opacity:0.5;">2026 &middot; Solo a scopo informativo</p>
+    <div class="foot-logo">VB</div>
+    <p>Virginia Borri &mdash; Editor Professionista</p>
+    <p>In collaborazione con <a href="https://www.instagram.com/pab_editore/" target="_blank">PAB Editore</a></p>
+    <p style="margin-top:1rem;opacity:0.4;">&copy; 2026 &middot; Tutti i diritti riservati</p>
   </footer>
+
+  <!-- SCROLL REVEAL -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
