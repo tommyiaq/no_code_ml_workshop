@@ -542,6 +542,43 @@
 
     footer a { color: var(--amber); text-decoration: none; }
 
+    /* ══ INSTAGRAM ══ */
+    .ig-section { text-align: center; }
+
+    .ig-feed {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ig-feed blockquote {
+      max-width: 320px !important;
+      min-width: 280px !important;
+      flex: 1;
+      border-radius: var(--radius) !important;
+      border: 1px solid rgba(212,148,58,0.08) !important;
+    }
+
+    .ig-follow-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 2.5rem;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .ig-follow-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 30px rgba(225,48,108,0.3);
+    }
+
     .socials {
       display: flex; justify-content: center;
       gap: 1.5rem; margin: 1.2rem 0;
@@ -700,6 +737,22 @@
     </div>
   </section>
 
+  <!-- INSTAGRAM -->
+  <section id="instagram" class="ig-section">
+    <div class="container">
+      <div class="section-label reveal" style="justify-content:center;">Seguici</div>
+      <div class="section-title reveal" style="text-align:center;">Siamo su <em>Instagram</em></div>
+      <div class="ig-feed reveal">
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/country.pub.poggibonsi/" data-instgrm-version="14">
+          <a href="https://www.instagram.com/country.pub.poggibonsi/" target="_blank">Vedi il profilo su Instagram</a>
+        </blockquote>
+      </div>
+      <a href="https://www.instagram.com/country.pub.poggibonsi/" target="_blank" class="ig-follow-btn reveal">
+        &#128247; Seguici su Instagram
+      </a>
+    </div>
+  </section>
+
   <!-- ORARI & RECENSIONI -->
   <section id="orari">
     <div class="container">
@@ -773,6 +826,9 @@
     </div>
     <p style="opacity:0.4;">&copy; 2026 Country Pub &mdash; Poggibonsi. Tutti i diritti riservati.</p>
   </footer>
+
+  <!-- INSTAGRAM EMBED SCRIPT -->
+  <script async src="https://www.instagram.com/embed.js"></script>
 
   <!-- SCROLL REVEAL -->
   <script>
