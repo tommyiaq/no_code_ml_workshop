@@ -3,599 +3,760 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chiappe, Piedi &amp; Fucili</title>
+  <title>Country Pub &mdash; Poggibonsi</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface2: #1a1a28;
-      --neon-pink: #ff2d7b;
-      --neon-blue: #00d4ff;
-      --neon-green: #39ff14;
-      --text: #eee;
-      --text-muted: #666;
-      --radius: 20px;
+      --bg: #0d0b08;
+      --surface: #171310;
+      --surface2: #1f1a14;
+      --amber: #d4943a;
+      --amber-dim: rgba(212,148,58,0.12);
+      --amber-mid: rgba(212,148,58,0.25);
+      --warm: #f5e6d0;
+      --cream: #faf3e8;
+      --text: #e0d5c5;
+      --text-muted: #7a6e5e;
+      --wood: #2a1f14;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif;
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
     }
 
-    ::selection { background: var(--neon-pink); color: #fff; }
+    ::selection { background: var(--amber); color: var(--bg); }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(13,11,8,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212,148,58,0.08);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--amber);
+    }
+
+    .nav-logo span {
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-left: 0.3rem;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 1.8rem; }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--amber); }
+
+    @media (max-width: 700px) {
+      nav ul { display: none; }
+    }
 
     /* ══ HERO ══ */
     .hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background:
+        linear-gradient(to bottom, rgba(13,11,8,0.3) 0%, rgba(13,11,8,0.7) 50%, var(--bg) 100%),
+        url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&h=900&fit=crop&crop=center') center/cover no-repeat;
+    }
+
+    .hero-content {
       text-align: center;
       padding: 2rem;
       position: relative;
-      overflow: hidden;
+      z-index: 2;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(255,45,123,0.1), transparent 60%);
-      top: -100px; left: -100px;
-      border-radius: 50%;
-      animation: glow1 8s ease-in-out infinite alternate;
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-mid);
+      border-radius: 999px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2rem;
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,212,255,0.08), transparent 60%);
-      bottom: -50px; right: -50px;
-      border-radius: 50%;
-      animation: glow2 10s ease-in-out infinite alternate;
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--amber); border-radius: 50%;
+      animation: pulse 2s infinite;
     }
 
-    @keyframes glow1 { to { transform: translate(100px, 80px); } }
-    @keyframes glow2 { to { transform: translate(-80px, -60px); } }
-
-    .hero-emojis {
-      font-size: clamp(3rem, 8vw, 5rem);
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-emojis span {
-      display: inline-block;
-      animation: emojiFloat 3s ease-in-out infinite;
-    }
-
-    .hero-emojis span:nth-child(1) { animation-delay: 0s; }
-    .hero-emojis span:nth-child(2) { animation-delay: 0.3s; }
-    .hero-emojis span:nth-child(3) { animation-delay: 0.6s; }
-
-    @keyframes emojiFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-15px) rotate(-5deg); }
-      75% { transform: translateY(5px) rotate(3deg); }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.4; transform:scale(1.6); }
     }
 
     .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.5rem, 10vw, 6rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 1rem;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      margin-bottom: 0.4em;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.5);
     }
 
-    .hero h1 .w1 { color: var(--neon-pink); text-shadow: 0 0 30px rgba(255,45,123,0.4); }
-    .hero h1 .w2 { color: var(--neon-blue); text-shadow: 0 0 30px rgba(0,212,255,0.4); }
-    .hero h1 .w3 { color: var(--neon-green); text-shadow: 0 0 30px rgba(57,255,20,0.4); }
-    .hero h1 .amp { color: var(--text-muted); font-weight: 400; font-size: 0.6em; }
+    .hero h1 em {
+      font-style: italic; font-weight: 400;
+      color: var(--amber);
+    }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
       color: var(--text-muted);
-      position: relative;
-      z-index: 1;
-      max-width: 500px;
-      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      font-weight: 300;
     }
 
-    /* ══ CARDS SECTION ══ */
-    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
-    section { padding: 5rem 0; }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
+    .hero-address {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
     }
 
-    .section-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform 0.4s, border-color 0.4s;
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.01);
-    }
-
-    .card.pink:hover { border-color: rgba(255,45,123,0.4); }
-    .card.blue:hover { border-color: rgba(0,212,255,0.4); }
-    .card.green:hover { border-color: rgba(57,255,20,0.4); }
-
-    .card-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
-    }
-
-    .card-body {
-      padding: 1.8rem;
-    }
-
-    .card-tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--amber);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
       border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      border: none; cursor: pointer;
+    }
+
+    .hero-cta:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 30px rgba(212,148,58,0.35);
+    }
+
+    .scroll-line {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: scrollDown 2s infinite;
+    }
+
+    @keyframes scrollDown {
+      0% { transform: translateX(-50%) scaleY(0); transform-origin: top; }
+      50% { transform: translateX(-50%) scaleY(1); transform-origin: top; }
+      51% { transform-origin: bottom; }
+      100% { transform: translateX(-50%) scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ══ CONTAINER ══ */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 6rem 0; }
+
+    .section-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber);
       margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.8rem;
     }
 
-    .card.pink .card-tag { background: rgba(255,45,123,0.15); color: var(--neon-pink); }
-    .card.blue .card-tag { background: rgba(0,212,255,0.15); color: var(--neon-blue); }
-    .card.green .card-tag { background: rgba(57,255,20,0.15); color: var(--neon-green); }
+    .section-label::before {
+      content: ''; width: 30px; height: 1px; background: var(--amber);
+    }
 
-    .card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.4rem;
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 700;
-      margin-bottom: 0.8rem;
-    }
-
-    .card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ══ FUN FACTS ══ */
-    .facts {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .fact {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: var(--radius);
-      padding: 2rem;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .fact:hover { transform: scale(1.03); }
-
-    .fact .emoji { font-size: 2.5rem; margin-bottom: 0.8rem; }
-
-    .fact .num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-    }
-
-    .fact.pink .num { color: var(--neon-pink); }
-    .fact.blue .num { color: var(--neon-blue); }
-    .fact.green .num { color: var(--neon-green); }
-
-    .fact .label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 0.3rem;
-    }
-
-    /* ══ DEEP DIVE SECTIONS ══ */
-    .deep {
-      padding: 5rem 0;
-    }
-
-    .deep-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      color: var(--cream);
+      line-height: 1.15;
       margin-bottom: 2rem;
     }
 
-    .deep-header .icon {
-      font-size: 2.5rem;
+    .section-title em { font-style: italic; color: var(--amber); }
+
+    /* ══ INFO BAR ══ */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 4rem;
     }
 
-    .deep-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
+    .info-card {
+      background: var(--surface);
+      border: 1px solid rgba(212,148,58,0.06);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
     }
 
-    .deep-content {
+    .info-card:hover {
+      border-color: var(--amber-mid);
+      transform: translateY(-4px);
+    }
+
+    .info-card .ic-emoji { font-size: 1.8rem; margin-bottom: 0.6rem; }
+
+    .info-card .ic-label {
+      font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-muted);
+      margin-bottom: 0.3rem; font-weight: 600;
+    }
+
+    .info-card .ic-value {
+      font-family: var(--serif);
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--cream);
+    }
+
+    .info-card .ic-value small {
+      display: block; font-family: var(--sans);
+      font-size: 0.75rem; font-weight: 400;
+      color: var(--text-muted); margin-top: 0.2rem;
+    }
+
+    /* ══ ABOUT ══ */
+    .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
+      gap: 3rem; align-items: center;
     }
 
-    @media (max-width: 700px) {
-      .deep-content { grid-template-columns: 1fr; }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(212,148,58,0.08);
     }
 
-    .deep-text p {
-      font-size: 0.92rem;
-      color: #aaa;
-      line-height: 1.8;
+    .about-img img {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; display: block;
+      transition: transform 0.6s;
+    }
+
+    .about-img:hover img { transform: scale(1.04); }
+
+    .about-text p {
+      font-size: 0.92rem; line-height: 1.8;
+      color: #bbb0a0; margin-bottom: 1rem; font-weight: 300;
+    }
+
+    .about-text strong { color: var(--cream); font-weight: 600; }
+
+    /* ══ OFFERINGS ══ */
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .offer-card {
+      background: var(--surface);
+      border: 1px solid rgba(212,148,58,0.06);
+      border-radius: var(--radius);
+      padding: 2.2rem 1.8rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s;
+    }
+
+    .offer-card:hover {
+      border-color: var(--amber-mid);
+      transform: translateY(-5px);
+    }
+
+    .offer-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+
+    .offer-card:hover::before { opacity: 1; }
+
+    .offer-card .oc-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    .offer-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.6rem;
+    }
+
+    .offer-card p {
+      font-size: 0.85rem; color: var(--text-muted);
+      line-height: 1.7; font-weight: 300;
+    }
+
+    /* ══ GALLERY ══ */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .gallery-grid .gi {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(212,148,58,0.06);
+      transition: transform 0.4s, border-color 0.4s;
+    }
+
+    .gallery-grid .gi:hover {
+      transform: scale(1.02);
+      border-color: var(--amber-mid);
+    }
+
+    .gallery-grid .gi img {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; display: block;
+    }
+
+    .gallery-grid .gi.tall img { aspect-ratio: 2/3; }
+
+    .gallery-grid .gi:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-grid .gi:first-child img { aspect-ratio: 2/3; height: 100%; }
+
+    /* ══ HOURS ══ */
+    .hours-table {
+      width: 100%;
+      max-width: 500px;
+      border-collapse: collapse;
+    }
+
+    .hours-table tr {
+      border-bottom: 1px solid rgba(212,148,58,0.06);
+    }
+
+    .hours-table td {
+      padding: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .hours-table .day {
+      font-weight: 600;
+      color: var(--cream);
+      width: 50%;
+    }
+
+    .hours-table .time {
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .hours-table .closed .time {
+      color: #8b4444;
+      font-weight: 600;
+    }
+
+    /* ══ REVIEWS ══ */
+    .reviews-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .review-card {
+      background: var(--surface);
+      border: 1px solid rgba(212,148,58,0.06);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .review-card::before {
+      content: '\201C';
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: var(--amber);
+      opacity: 0.12;
+      position: absolute;
+      top: 5px; left: 15px;
+      line-height: 1;
+    }
+
+    .review-card p {
+      font-size: 0.88rem;
+      color: #bbb0a0;
+      line-height: 1.7;
+      font-style: italic;
       margin-bottom: 1rem;
     }
 
-    .deep-text strong { color: var(--text); }
+    .review-card .stars { color: var(--amber); font-size: 0.85rem; margin-bottom: 0.5rem; }
 
-    .deep-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+    .review-card cite {
+      font-style: normal;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
-    .deep-list li {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 12px;
-      padding: 1rem 1.4rem;
-      font-size: 0.88rem;
-      color: #bbb;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      transition: border-color 0.3s;
-    }
-
-    .deep-list li:hover { border-color: rgba(255,255,255,0.1); }
-
-    .deep-list li .li-icon { font-size: 1.3rem; flex-shrink: 0; }
-
-    /* ══ GALLERY ══ */
-    .gallery-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
+    /* ══ CTA ══ */
+    .cta-section {
       text-align: center;
+      padding: 8rem 2rem;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212,148,58,0.06), transparent 60%);
+    }
+
+    .cta-section > * { position: relative; }
+
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .cta-title em { font-style: italic; color: var(--amber); }
+
+    .cta-info {
+      font-size: 1rem;
+      color: var(--text-muted);
       margin-bottom: 2rem;
+      font-weight: 300;
     }
 
-    .gallery-strip {
+    .cta-buttons {
       display: flex;
+      justify-content: center;
       gap: 1rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 1rem 0 2rem;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      flex-wrap: wrap;
     }
 
-    .gallery-strip::-webkit-scrollbar { display: none; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 999px;
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.3s;
+      border: none; cursor: pointer;
+    }
 
-    .gallery-item {
-      flex: 0 0 280px;
-      scroll-snap-align: start;
+    .cta-btn.primary {
+      background: var(--amber);
+      color: var(--bg);
+    }
+
+    .cta-btn.secondary {
+      background: transparent;
+      color: var(--amber);
+      border: 1px solid var(--amber-mid);
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 24px rgba(212,148,58,0.25);
+    }
+
+    /* ══ MAP ══ */
+    .map-wrapper {
       border-radius: var(--radius);
       overflow: hidden;
-      position: relative;
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.04);
-      transition: transform 0.3s;
+      border: 1px solid rgba(212,148,58,0.08);
+      margin-top: 2rem;
+      filter: grayscale(0.6) brightness(0.7) contrast(1.1);
+      transition: filter 0.4s;
     }
 
-    .gallery-item:hover { transform: scale(1.02); }
+    .map-wrapper:hover { filter: grayscale(0) brightness(0.85); }
 
-    .gallery-item img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      display: block;
-    }
-
-    .gallery-item .caption {
-      padding: 1rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      text-align: center;
+    .map-wrapper iframe {
+      width: 100%; height: 350px;
+      border: none; display: block;
     }
 
     /* ══ FOOTER ══ */
     footer {
+      border-top: 1px solid rgba(212,148,58,0.06);
+      padding: 3rem 2rem;
       text-align: center;
-      padding: 4rem 2rem;
-      border-top: 1px solid rgba(255,255,255,0.04);
     }
 
-    footer .big-emoji { font-size: 3rem; margin-bottom: 1rem; }
+    footer .f-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem; font-weight: 900;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
 
     footer p {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 0.82rem;
       line-height: 1.8;
+    }
+
+    footer a { color: var(--amber); text-decoration: none; }
+
+    .socials {
+      display: flex; justify-content: center;
+      gap: 1.5rem; margin: 1.2rem 0;
+    }
+
+    .socials a {
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
     }
 
     /* ══ ANIMATIONS ══ */
     .reveal {
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 0; transform: translateY(30px);
       transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
                   transform 0.7s cubic-bezier(0.16,1,0.3,1);
     }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ══ FLOATING BG EMOJIS ══ */
-    .bg-emojis {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .bg-emoji {
-      position: absolute;
-      font-size: 24px;
-      opacity: 0.04;
-      animation: drift linear infinite;
-    }
-
-    @keyframes drift {
-      0% { transform: translateY(110vh) rotate(0deg); }
-      100% { transform: translateY(-10vh) rotate(720deg); }
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- BG FLOATING EMOJIS -->
-  <div class="bg-emojis">
-    <span class="bg-emoji" style="left:5%;font-size:28px;animation-duration:25s;animation-delay:0s;">&#127942;</span>
-    <span class="bg-emoji" style="left:15%;font-size:20px;animation-duration:30s;animation-delay:3s;">&#129462;</span>
-    <span class="bg-emoji" style="left:25%;font-size:32px;animation-duration:22s;animation-delay:7s;">&#128299;</span>
-    <span class="bg-emoji" style="left:40%;font-size:22px;animation-duration:28s;animation-delay:2s;">&#129462;</span>
-    <span class="bg-emoji" style="left:55%;font-size:26px;animation-duration:20s;animation-delay:5s;">&#127942;</span>
-    <span class="bg-emoji" style="left:70%;font-size:30px;animation-duration:26s;animation-delay:1s;">&#128299;</span>
-    <span class="bg-emoji" style="left:85%;font-size:24px;animation-duration:24s;animation-delay:4s;">&#129462;</span>
-    <span class="bg-emoji" style="left:95%;font-size:20px;animation-duration:32s;animation-delay:8s;">&#127942;</span>
-  </div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Country Pub <span>Poggibonsi</span></div>
+    <ul>
+      <li><a href="#chi-siamo">Chi siamo</a></li>
+      <li><a href="#offerta">Offerta</a></li>
+      <li><a href="#galleria">Galleria</a></li>
+      <li><a href="#orari">Orari</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-emojis">
-      <span>&#127751;</span>
-      <span>&#129462;</span>
-      <span>&#128299;</span>
+    <div class="hero-content">
+      <div class="hero-badge">Dal cuore della Toscana</div>
+      <h1>Country<br><em>Pub</em></h1>
+      <p class="hero-sub">Birre artigianali, musica live e serate indimenticabili</p>
+      <p class="hero-address">&#128205; Via Giovanni Montorsoli 21, Poggibonsi (SI)</p>
+      <a href="tel:+393476921994" class="hero-cta">
+        Chiamaci &#128222;
+      </a>
     </div>
-    <h1>
-      <span class="w1">Chiappe</span><br>
-      <span class="w2">Piedi</span> <span class="amp">&amp;</span> <span class="w3">Fucili</span>
-    </h1>
-    <p class="hero-sub">Il trilogo definitivo che nessuno ha chiesto ma tutti meritano. Un'esplorazione culturale, scientifica e assolutamente seria.</p>
+    <div class="scroll-line"></div>
   </section>
 
-  <!-- CARDS -->
-  <section>
-    <div class="container">
-      <div class="section-header reveal">
-        <h2>I tre pilastri</h2>
+  <!-- INFO BAR -->
+  <div class="container" style="padding-top:4rem;">
+    <div class="info-bar">
+      <div class="info-card reveal">
+        <div class="ic-emoji">&#127866;</div>
+        <div class="ic-label">Birre</div>
+        <div class="ic-value">Artigianali<small>Selezione rotante alla spina</small></div>
       </div>
-      <div class="cards-grid">
-
-        <div class="card pink reveal">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=450&fit=crop" alt="Fitness glutei" class="card-img" />
-          <div class="card-body">
-            <span class="card-tag">Anatomia</span>
-            <h3>Le Chiappe</h3>
-            <p>Il <strong>gluteo massimo</strong> &egrave; il muscolo pi&ugrave; grande del corpo umano. Tre strati muscolari (grande, medio e piccolo) lavorano insieme per permetterci di camminare eretti, correre, saltare e sederci. Senza di loro, saresti un sacco di patate bipede.</p>
-          </div>
-        </div>
-
-        <div class="card blue reveal">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=450&fit=crop&crop=bottom" alt="Piedi" class="card-img" />
-          <div class="card-body">
-            <span class="card-tag">Biomeccanica</span>
-            <h3>I Piedi</h3>
-            <p>Ogni piede contiene <strong>26 ossa, 33 articolazioni e oltre 100 muscoli</strong>, tendini e legamenti. Nella vita media, i piedi percorrono circa <strong>150.000 km</strong> &mdash; quasi 4 volte il giro della Terra. Il vero MVP del corpo umano.</p>
-          </div>
-        </div>
-
-        <div class="card green reveal">
-          <img src="https://images.unsplash.com/photo-1504329426849-c032b00832e1?w=600&h=450&fit=crop" alt="Fucile da caccia" class="card-img" />
-          <div class="card-body">
-            <span class="card-tag">Ingegneria</span>
-            <h3>I Fucili</h3>
-            <p>Dalle <strong>armi a pietra focaia</strong> del XVI secolo ai moderni fucili di precisione, l'evoluzione del fucile &egrave; una storia di ingegneria, metallurgia e balistica. Il primo fucile rigato risale al <strong>1498</strong>, quando artigiani di Norimberga incisero scanalature elicoidali nella canna.</p>
-          </div>
-        </div>
-
+      <div class="info-card reveal">
+        <div class="ic-emoji">&#11088;</div>
+        <div class="ic-label">Valutazione</div>
+        <div class="ic-value">4.4 / 5<small>194 recensioni Google</small></div>
+      </div>
+      <div class="info-card reveal">
+        <div class="ic-emoji">&#127926;</div>
+        <div class="ic-label">Intrattenimento</div>
+        <div class="ic-value">Musica Live<small>Concerti e DJ set</small></div>
+      </div>
+      <div class="info-card reveal">
+        <div class="ic-emoji">&#128176;</div>
+        <div class="ic-label">Prezzo medio</div>
+        <div class="ic-value">&euro;10 &ndash; &euro;20<small>A persona</small></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FUN FACTS -->
-  <section>
+  <!-- CHI SIAMO -->
+  <section id="chi-siamo">
     <div class="container">
-      <div class="section-header reveal">
-        <h2>Numeri assurdi ma veri</h2>
-      </div>
-      <div class="facts">
-        <div class="fact pink reveal">
-          <div class="emoji">&#127751;</div>
-          <div class="num">200+</div>
-          <div class="label">kg di forza del gluteo massimo</div>
+      <div class="about-grid">
+        <div class="about-img reveal">
+          <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=600&h=750&fit=crop" alt="Atmosfera pub" />
         </div>
-        <div class="fact blue reveal">
-          <div class="emoji">&#129462;</div>
-          <div class="num">250K</div>
-          <div class="label">ghiandole sudoripare per piede</div>
-        </div>
-        <div class="fact green reveal">
-          <div class="emoji">&#128299;</div>
-          <div class="num">1.200</div>
-          <div class="label">m/s velocit&agrave; proiettile fucile</div>
-        </div>
-        <div class="fact pink reveal">
-          <div class="emoji">&#128170;</div>
-          <div class="num">3</div>
-          <div class="label">muscoli glutei per lato</div>
-        </div>
-        <div class="fact blue reveal">
-          <div class="emoji">&#129460;</div>
-          <div class="num">26</div>
-          <div class="label">ossa in ogni piede</div>
-        </div>
-        <div class="fact green reveal">
-          <div class="emoji">&#129516;</div>
-          <div class="num">1498</div>
-          <div class="label">anno primo fucile rigato</div>
+        <div class="reveal">
+          <div class="section-label">Chi siamo</div>
+          <div class="section-title">Dove la Toscana incontra il <em>pub</em></div>
+          <div class="about-text">
+            <p>Nel cuore di <strong>Poggibonsi</strong>, tra le colline del Chianti e le torri di San Gimignano, il Country Pub &egrave; il punto di ritrovo per chi cerca <strong>birre artigianali</strong>, buona musica e un'atmosfera autentica.</p>
+            <p>Dalle <strong>21:30 fino a tarda notte</strong>, offriamo una selezione curata di birre alla spina, cocktail preparati con cura, taglieri di <strong>salumi e formaggi toscani</strong>, e i nostri leggendari panini.</p>
+            <p>Con <strong>biliardino, freccette, giochi da tavolo</strong> e serate di musica live, il Country Pub &egrave; pi&ugrave; di un bar: &egrave; un'esperienza. Vieni a scoprirla.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DEEP DIVE: CHIAPPE -->
-  <div class="deep">
+  <!-- OFFERTA -->
+  <section id="offerta">
     <div class="container">
-      <div class="deep-header reveal">
-        <span class="icon">&#127751;</span>
-        <h2 style="color:var(--neon-pink);">Deep Dive: Le Chiappe</h2>
-      </div>
-      <div class="deep-content">
-        <div class="deep-text reveal">
-          <p>Il <strong>gluteo massimo</strong> non &egrave; solo il muscolo pi&ugrave; grande del corpo: &egrave; quello che ci ha permesso di <strong>diventare corridori di resistenza</strong>. I nostri antenati cacciavano le prede inseguendole per ore, e il gluteo era il motore principale di quella corsa.</p>
-          <p>Nell'arte, le chiappe hanno avuto un ruolo da protagonista: dalla <strong>Venere di Willendorf</strong> (30.000 a.C.) alla <strong>Venere di Milo</strong>, fino alle sculture del Rinascimento. Michelangelo le considerava una delle forme pi&ugrave; difficili da scolpire.</p>
-          <p>Fun fact: stare seduti troppo a lungo causa la <strong>"amnesia del gluteo"</strong> &mdash; una condizione reale in cui il muscolo "dimentica" come attivarsi. Il rimedio? Alzarsi e fare squat.</p>
+      <div class="section-label reveal">Cosa offriamo</div>
+      <div class="section-title reveal">Ogni sera, <em>un'esperienza</em></div>
+      <div class="offer-grid">
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#127866;</div>
+          <h3>Birre Artigianali</h3>
+          <p>Selezione rotante di birre artigianali italiane e internazionali alla spina e in bottiglia. Dalle IPA luppolate alle Stout cremose, c'&egrave; sempre qualcosa di nuovo da scoprire.</p>
         </div>
-        <ul class="deep-list reveal">
-          <li><span class="li-icon">&#127939;</span> Fondamentali per la corsa eretta</li>
-          <li><span class="li-icon">&#128137;</span> 250.000 anni di evoluzione</li>
-          <li><span class="li-icon">&#127912;</span> Protagoniste nell'arte rinascimentale</li>
-          <li><span class="li-icon">&#129504;</span> Amnesia glutea: condizione reale</li>
-          <li><span class="li-icon">&#128170;</span> Producono oltre 200 kg di forza</li>
-        </ul>
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#127864;</div>
+          <h3>Cocktail &amp; Spirits</h3>
+          <p>Cocktail classici e signature preparati con ingredienti di qualit&agrave;. Gin tonic perfetti, spritz toscani e le nostre creazioni originali per ogni palato.</p>
+        </div>
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#129472;</div>
+          <h3>Taglieri Toscani</h3>
+          <p>Taglieri generosi con salumi e formaggi selezionati dal territorio: finocchiona, pecorino di Pienza, lardo di Colonnata e molto altro dalla tradizione toscana.</p>
+        </div>
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#129386;</div>
+          <h3>Panini Leggendari</h3>
+          <p>I nostri panini sono un'istituzione a Poggibonsi. Farciture abbondanti, ingredienti freschi e combinazioni che non trovi da nessun'altra parte. Da provare assolutamente.</p>
+        </div>
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#127926;</div>
+          <h3>Musica Live</h3>
+          <p>Concerti dal vivo, jam session e DJ set ogni settimana. Dal rock al blues, dal folk all'indie &mdash; il palco del Country Pub &egrave; sempre acceso.</p>
+        </div>
+        <div class="offer-card reveal">
+          <div class="oc-icon">&#127922;</div>
+          <h3>Giochi &amp; Svago</h3>
+          <p>Biliardino, freccette, giochi da tavolo e carte. Sfida i tuoi amici o fai nuove conoscenze davanti a una birra. Lo spirito del pub, quello vero.</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- DEEP DIVE: PIEDI -->
-  <div class="deep">
+  <!-- GALLERIA -->
+  <section id="galleria">
     <div class="container">
-      <div class="deep-header reveal">
-        <span class="icon">&#129462;</span>
-        <h2 style="color:var(--neon-blue);">Deep Dive: I Piedi</h2>
-      </div>
-      <div class="deep-content">
-        <div class="deep-text reveal">
-          <p>I piedi sono <strong>capolavori di ingegneria biologica</strong>. L'arco plantare funziona come una molla naturale, assorbendo l'impatto e restituendo energia ad ogni passo. Leonardo da Vinci li defin&igrave; <em>"un'opera d'arte e un capolavoro di ingegneria"</em>.</p>
-          <p>Ogni giorno i piedi sopportano una <strong>forza cumulativa di centinaia di tonnellate</strong>. Durante una corsa, ogni piede riceve un impatto pari a 3-4 volte il peso corporeo ad ogni falcata.</p>
-          <p>La <strong>riflessologia plantare</strong>, praticata da oltre 4.000 anni nell'antico Egitto, mappa l'intero corpo sulla pianta del piede. E le impronte digitali dei piedi? Uniche come quelle delle mani &mdash; usate in medicina forense fin dal 1934.</p>
+      <div class="section-label reveal">Galleria</div>
+      <div class="section-title reveal">L'atmosfera del <em>Country</em></div>
+      <div class="gallery-grid reveal">
+        <div class="gi">
+          <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=500&h=750&fit=crop" alt="Birra artigianale" />
         </div>
-        <ul class="deep-list reveal">
-          <li><span class="li-icon">&#128336;</span> 150.000 km percorsi nella vita</li>
-          <li><span class="li-icon">&#129504;</span> 200.000 terminazioni nervose</li>
-          <li><span class="li-icon">&#128167;</span> 250.000 ghiandole sudoripare</li>
-          <li><span class="li-icon">&#127912;</span> Leonardo li studi&ograve; nel dettaglio</li>
-          <li><span class="li-icon">&#128256;</span> Impronte uniche come le mani</li>
-        </ul>
+        <div class="gi">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500&h=375&fit=crop" alt="Interno pub" />
+        </div>
+        <div class="gi">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=500&h=375&fit=crop" alt="Cocktail" />
+        </div>
+        <div class="gi">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&h=375&fit=crop" alt="Tagliere" />
+        </div>
+        <div class="gi">
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=375&fit=crop" alt="Musica live" />
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- DEEP DIVE: FUCILI -->
-  <div class="deep">
+  <!-- ORARI & RECENSIONI -->
+  <section id="orari">
     <div class="container">
-      <div class="deep-header reveal">
-        <span class="icon">&#128299;</span>
-        <h2 style="color:var(--neon-green);">Deep Dive: I Fucili</h2>
-      </div>
-      <div class="deep-content">
-        <div class="deep-text reveal">
-          <p>La storia del fucile inizia con l'<strong>archibugio</strong> nel XV secolo, un'arma rozza e imprecisa che cambi&ograve; per sempre la guerra. L'invenzione della <strong>rigatura</strong> a Norimberga nel 1498 fu rivoluzionaria: le scanalature elicoidali nella canna imprimono una rotazione al proiettile, stabilizzandolo in volo.</p>
-          <p>Il <strong>Kentucky Long Rifle</strong> americano (1700s) poteva colpire bersagli a 200 metri &mdash; il doppio della portata dei moschetti britannici. Questa precisione contribu&igrave; all'indipendenza americana.</p>
-          <p>Oggi, i fucili di precisione militare raggiungono bersagli a <strong>oltre 3.500 metri</strong>. Il record mondiale di tiro a distanza &egrave; di 4.210 metri, stabilito nel 2024 in Wyoming con un proiettile che ha volato per oltre 10 secondi prima di raggiungere il bersaglio.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+        <div class="reveal">
+          <div class="section-label">Orari</div>
+          <div class="section-title">Quando <em>trovarci</em></div>
+          <table class="hours-table">
+            <tr><td class="day">Luned&igrave;</td><td class="time">21:30 &ndash; 00:00</td></tr>
+            <tr class="closed"><td class="day">Marted&igrave;</td><td class="time">Chiuso</td></tr>
+            <tr><td class="day">Mercoled&igrave;</td><td class="time">21:30 &ndash; 02:00</td></tr>
+            <tr><td class="day">Gioved&igrave;</td><td class="time">21:30 &ndash; 02:00</td></tr>
+            <tr><td class="day">Venerd&igrave;</td><td class="time">21:30 &ndash; 02:00</td></tr>
+            <tr><td class="day">Sabato</td><td class="time">21:30 &ndash; 02:00</td></tr>
+            <tr><td class="day">Domenica</td><td class="time">21:30 &ndash; 02:00</td></tr>
+          </table>
         </div>
-        <ul class="deep-list reveal">
-          <li><span class="li-icon">&#128293;</span> 1498: primo fucile rigato a Norimberga</li>
-          <li><span class="li-icon">&#127482;&#127480;</span> Kentucky Rifle: arma della rivoluzione</li>
-          <li><span class="li-icon">&#128640;</span> 1.200 m/s: velocit&agrave; proiettile moderno</li>
-          <li><span class="li-icon">&#127919;</span> Record: 4.210 m di distanza nel 2024</li>
-          <li><span class="li-icon">&#9881;&#65039;</span> 500+ anni di evoluzione ingegneristica</li>
-        </ul>
+        <div class="reveal">
+          <div class="section-label">Dicono di noi</div>
+          <div class="section-title">Le <em>recensioni</em></div>
+          <div class="reviews-row" style="margin-top:0;">
+            <div class="review-card">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Pub fantastico, ottima selezione di birre e atmosfera perfetta. I panini sono spettacolari e lo staff &egrave; sempre gentilissimo!</p>
+              <cite>&mdash; Recensione Google</cite>
+            </div>
+            <div class="review-card">
+              <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p>Il miglior pub della zona. Musica live ogni weekend, birre artigianali e quel feeling autentico che i locali moderni non hanno pi&ugrave;.</p>
+              <cite>&mdash; Recensione Google</cite>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- GALLERY -->
+  <!-- MAP -->
   <section>
     <div class="container">
-      <h2 class="gallery-title reveal">Galleria Illustre</h2>
-      <div class="gallery-strip">
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=400&h=530&fit=crop" alt="Scultura classica" />
-          <div class="caption">Scultura classica &mdash; il gluteo nell'arte</div>
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=400&h=530&fit=crop" alt="Piedi sulla sabbia" />
-          <div class="caption">26 ossa per piede &mdash; ingegneria perfetta</div>
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1504329426849-c032b00832e1?w=400&h=530&fit=crop" alt="Fucile antico" />
-          <div class="caption">Fucile antico &mdash; 500 anni di storia</div>
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=530&fit=crop" alt="Fitness" />
-          <div class="caption">Il muscolo pi&ugrave; potente del corpo</div>
-        </div>
-        <div class="gallery-item reveal">
-          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=530&fit=crop" alt="Piedi yoga" />
-          <div class="caption">150.000 km nella vita media</div>
+      <div class="map-wrapper reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2896.5!2d11.1497!3d43.4683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132a2c!2sVia+Giovanni+Montorsoli+21+Poggibonsi!5e0!3m2!1sit!2sit!4v1" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contatti">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label" style="justify-content:center;">Contatti</div>
+        <h2 class="cta-title">Ti aspettiamo <em>stasera</em></h2>
+        <p class="cta-info">Via Giovanni Montorsoli 21, Poggibonsi (SI) &mdash; Apriamo alle 21:30</p>
+        <div class="cta-buttons">
+          <a href="tel:+393476921994" class="cta-btn primary">&#128222; Chiama ora</a>
+          <a href="https://www.instagram.com/country.pub.poggibonsi/" target="_blank" class="cta-btn secondary">&#128247; Instagram</a>
+          <a href="https://www.google.com/maps/dir//Via+Giovanni+Montorsoli+21+Poggibonsi" target="_blank" class="cta-btn secondary">&#128205; Indicazioni</a>
         </div>
       </div>
     </div>
@@ -603,15 +764,20 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="big-emoji">&#127751;&#129462;&#128299;</div>
-    <p>Un progetto di dubbia utilit&agrave; ma indiscutibile fascino.</p>
-    <p style="margin-top:0.5rem;opacity:0.4;">&copy; 2026 &middot; Chiappe, Piedi &amp; Fucili &mdash; Tutti i diritti riservati (seriamente)</p>
+    <div class="f-logo">Country Pub</div>
+    <p>Via Giovanni Montorsoli 21, 53036 Poggibonsi (SI)</p>
+    <p>Tel: <a href="tel:+393476921994">+39 347 692 1994</a></p>
+    <div class="socials">
+      <a href="https://www.instagram.com/country.pub.poggibonsi/" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/people/country-pub/100063621428323/" target="_blank">Facebook</a>
+    </div>
+    <p style="opacity:0.4;">&copy; 2026 Country Pub &mdash; Poggibonsi. Tutti i diritti riservati.</p>
   </footer>
 
   <!-- SCROLL REVEAL -->
   <script>
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
+      entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
           observer.unobserve(e.target);
